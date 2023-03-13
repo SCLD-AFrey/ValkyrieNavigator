@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:ClientApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ClientApp.Views.MainApp.LoginView">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="100,200" RowDefinitions="35,35,35,35,35" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Login to Transaction Navigator" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Username:" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Username}" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Password:" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Password}" />
+
+        <Button Grid.Row="3" Grid.Column="1" Content="Login" Command="{Binding LoginCommand}" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LoginMessage}" />
+
+    </Grid>
+</UserControl>

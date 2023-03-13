@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:ClientApp.ViewModels.MainApp"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ClientApp.Views.MainApp.MainView">
+
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button Content="Home" Command="{Binding Navigation}" CommandParameter="home"></Button>
+            <Button Content="Transactions" Command="{Binding Navigation}" CommandParameter="transactions"></Button>
+            <Button Content="Accounts" Command="{Binding Navigation}" CommandParameter="accounts"></Button>
+            <Button Content="Settings" Command="{Binding Navigation}" CommandParameter="settings"></Button>
+        </StackPanel>
+        
+        <Grid Grid.Column="1">
+            <Carousel Name="carousel" SelectedIndex="{Binding SelectedIndex}">
+                <Carousel.PageTransition>
+                    <PageSlide Duration="0.5" Orientation="Vertical" />
+                </Carousel.PageTransition>
+                
+                <ContentControl Content="{Binding HomeView}"/>
+                <ContentControl Content="{Binding AccountsView}"/>
+                <ContentControl Content="{Binding TransactionsView}"/>
+                <ContentControl Content="{Binding SettingsView}"/>
+            </Carousel>
+        </Grid>
+        
+        
+    </Grid>
+    
+    
+</UserControl>

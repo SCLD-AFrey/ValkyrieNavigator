@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ClientApp.ViewModels"
+        xmlns:v="using:ClientApp.Views.MainApp"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ClientApp.Views.MainWindowView"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{Binding WindowTitle}">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Carousel Name="carousel" SelectedIndex="{Binding SelectedIndex}" Grid.Column="1">
+        <Carousel.PageTransition>
+            <PageSlide Duration="0.25" Orientation="Horizontal" />
+        </Carousel.PageTransition>
+        <ContentControl Content="{Binding LoginView}"/>
+        <ContentControl Content="{Binding MainView}"/>
+    </Carousel>
+
+
+</Window>
