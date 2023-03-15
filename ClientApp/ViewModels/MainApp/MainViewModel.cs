@@ -8,10 +8,8 @@ namespace ClientApp.ViewModels.MainApp;
 
 public class MainViewModel : ViewModelBase
 {
-    private readonly IServiceProvider m_serviceProvider;
-    public MainViewModel(IServiceProvider p_serviceProvider)
+    public MainViewModel()
     {
-        m_serviceProvider = p_serviceProvider;
         SelectedIndex = 0;
         HomeView = new HomeView() { DataContext = new HomeViewModel() };
         TransactionsView = new TransactionsView() { DataContext = new TransactionsViewModel() };

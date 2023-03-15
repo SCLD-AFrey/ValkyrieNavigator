@@ -1,22 +1,13 @@
 ﻿using System.IO;
 using ClientApp.Services.Infrastructure;
+using TransactionData;
 
 namespace ClientApp.Models
 {
     public class Settings
     {
-        public int LastUserId { get; set; } = 0;
-        private readonly CommonFiles m_commonFilesService;
-
-        public Settings(CommonFiles p_commonFilesService)
-        {
-            m_commonFilesService = p_commonFilesService;
-            
-            if(!File.Exists(m_commonFilesService.SettingsPath))
-                File.Create(m_commonFilesService.SettingsPath);
-            File.WriteAllText(m_commonFilesService.SettingsPath, LastUserId.ToString());
-            
-        }
-
+        public string? AppName { get; set; } = "ClientApp";
+        public string? AppVersion { get; set; } = "1.0.0";
+        public int LastUserOid { get; set; } = 0;
     }
 }

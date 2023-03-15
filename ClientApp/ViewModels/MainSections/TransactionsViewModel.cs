@@ -9,12 +9,10 @@ namespace ClientApp.ViewModels.MainSections;
 
 public class TransactionsViewModel : ViewModelBase
 {
-    private readonly TransactionService m_transactionService;
 
-    public TransactionsViewModel(TransactionService p_transactionService)
+    public TransactionsViewModel()
     {
-        m_transactionService = p_transactionService;
-        var Transactions = m_transactionService.GetTransactions();
+        
     }
     
     [Reactive] public DateTime StartDate { get; set; } = DateTime.UtcNow.AddMonths(-1);

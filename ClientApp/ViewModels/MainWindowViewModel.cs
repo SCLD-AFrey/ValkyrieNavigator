@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Drawing.Printing;
+using System.Linq;
 using System.Reactive;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -20,16 +22,29 @@ public class MainWindowViewModel : ViewModelBase
     private readonly TransactionDatabaseInterface m_dbInterface;
     private readonly CommonFiles m_commonFiles;
     private readonly PasswordHash m_passwordHash;
-    public MainWindowViewModel(TransactionDatabaseInterface p_dbInterface, CommonFiles p_commonFiles, PasswordHash p_passwordHash)
+    private readonly SettingsService m_settingsService;
+    public MainWindowViewModel(TransactionDatabaseInterface p_dbInterface, 
+        CommonFiles p_commonFiles, 
+        PasswordHash p_passwordHash, 
+        SettingsService p_settingsService)
     {
         m_dbInterface = p_dbInterface;
         m_commonFiles = p_commonFiles;
         m_passwordHash = p_passwordHash;
+        m_settingsService = p_settingsService;
         LoginView = new LoginView()
         {
             DataContext = this
         };
         MainView = new MainView();
+
+        if (m_settingsService.CurrentUser != null) CurrentUserOid = m_settingsService.CurrentUser.Oid;
+
+        SetIndex();
+    }
+
+    private void SetIndex()
+    {
         SelectedIndex = CurrentUserOid switch
         {
             > 0 when SelectedIndex == 0 => 1,
@@ -69,6 +84,9 @@ public class MainWindowViewModel : ViewModelBase
         {
             LoginMessage = "Invalid Username";
         }
+        m_settingsService.CurrentUser = CurrentUserOid == 0 ? new User(unitOfWork) : unitOfWork.GetObjectByKey<User>(CurrentUserOid);
+        m_settingsService.SaveSettings();
+        SetIndex();
     }
     
 }

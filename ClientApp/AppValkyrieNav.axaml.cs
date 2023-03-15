@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using ClientApp.Models.Logging;
 using ClientApp.Services;
 using ClientApp.Services.Database;
 using ClientApp.Services.Infrastructure;
@@ -15,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Json;
 
 namespace ClientApp;
 
@@ -53,8 +56,8 @@ public partial class AppValkyrieNav : Application
         
         p_services.AddSingleton<MainWindowViewModel>();
         p_services.AddSingleton<MainWindowView>();
-        
-        
+
+
         p_services.AddSingleton<MainViewModel>();
         p_services.AddSingleton<AccountsViewModel>();
         p_services.AddSingleton<HomeViewModel>();
@@ -73,6 +76,21 @@ public partial class AppValkyrieNav : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
+#if DEBUG
+        var logLevel = LogEventLevel.Debug;
+#else
+        var logLevel = LogEventLevel.Information;
+#endif
+        
+        var filesService = m_appHost.Services.GetRequiredService<CommonFiles>();
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Is(logLevel)
+            .WriteTo.Sink(new CollectionSink())
+            .WriteTo.File(new JsonFormatter(), filesService.LogsPath)
+            .CreateLogger();
+    
+    
         await m_appHost.StartAsync();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
