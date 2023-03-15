@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ClientApp.ViewModels.MainSections;
 using ClientApp.Views.MainSections;
 using ReactiveUI.Fody.Helpers;
@@ -7,8 +8,10 @@ namespace ClientApp.ViewModels.MainApp;
 
 public class MainViewModel : ViewModelBase
 {
-    public MainViewModel()
+    private readonly IServiceProvider m_serviceProvider;
+    public MainViewModel(IServiceProvider p_serviceProvider)
     {
+        m_serviceProvider = p_serviceProvider;
         SelectedIndex = 0;
         HomeView = new HomeView() { DataContext = new HomeViewModel() };
         TransactionsView = new TransactionsView() { DataContext = new TransactionsViewModel() };

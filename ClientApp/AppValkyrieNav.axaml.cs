@@ -20,7 +20,7 @@ namespace ClientApp;
 
 public partial class AppValkyrieNav : Application
 {
-    private readonly IHost m_appHost;
+    public readonly IHost m_appHost;
     
     public AppValkyrieNav()
     {
@@ -49,6 +49,7 @@ public partial class AppValkyrieNav : Application
         p_services.AddSingleton<TransactionDatabaseInitialization>();
         
         p_services.AddSingleton<SettingsService>();
+        p_services.AddSingleton<TransactionService>();
         
         p_services.AddSingleton<MainWindowViewModel>();
         p_services.AddSingleton<MainWindowView>();

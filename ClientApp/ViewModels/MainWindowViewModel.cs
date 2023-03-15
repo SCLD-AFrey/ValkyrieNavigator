@@ -69,11 +69,6 @@ public class MainWindowViewModel : ViewModelBase
         {
             LoginMessage = "Invalid Username";
         }
-        if(CurrentUserOid > 0)
-        {
-            MainView.DataContext = new MainViewModel();
-            SelectedIndex = 1;
-        }
     }
     
 }
