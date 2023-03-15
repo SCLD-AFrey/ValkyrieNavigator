@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -69,16 +70,26 @@ public partial class AppValkyrieNav : Application
         
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
+        await m_appHost.StartAsync();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var dbInitializationService = m_appHost.Services.GetRequiredService<TransactionDatabaseInitialization>();
+            await dbInitializationService.DoFirstTimeSetup();
+            
+            desktop.ShutdownRequested += DesktopOnShutdownRequested;
             desktop.MainWindow = new MainWindowView
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = m_appHost.Services.GetRequiredService<MainWindowViewModel>(),
             };
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private async void DesktopOnShutdownRequested(object? p_sender, ShutdownRequestedEventArgs p_e)
+    {
+        await m_appHost.StopAsync();
     }
 }

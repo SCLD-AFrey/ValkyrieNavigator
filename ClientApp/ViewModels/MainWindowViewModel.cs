@@ -1,18 +1,30 @@
-﻿using System.Reactive;
+﻿using System.Linq;
+using System.Reactive;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using ClientApp.Services;
+using ClientApp.Services.Database;
+using ClientApp.Services.Infrastructure;
 using ClientApp.ViewModels.MainApp;
 using ClientApp.Views.MainApp;
+using DevExpress.Xpo;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using TransactionData;
 
 namespace ClientApp.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public MainWindowViewModel()
+    private readonly TransactionDatabaseInterface m_dbInterface;
+    private readonly CommonFiles m_commonFiles;
+    private readonly PasswordHash m_passwordHash;
+    public MainWindowViewModel(TransactionDatabaseInterface p_dbInterface, CommonFiles p_commonFiles, PasswordHash p_passwordHash)
     {
+        m_dbInterface = p_dbInterface;
+        m_commonFiles = p_commonFiles;
+        m_passwordHash = p_passwordHash;
         LoginView = new LoginView()
         {
             DataContext = this
@@ -39,12 +51,14 @@ public class MainWindowViewModel : ViewModelBase
     public async Task LoginCommand()
     {
         CurrentUserOid = 0;
+        using var unitOfWork = m_dbInterface.ProvisionUnitOfWork();
+        User? user = unitOfWork.Query<User>().FirstOrDefault(p_x => p_x.Username.ToLower() == Username.ToLower());
         
-        if (Username.Trim().ToLower() == "admin")
+        if (user != null)
         {
-            if (Password.Equals("password"))
+            if (m_passwordHash.VerifyPassword(Password, user.Password, user.Salt))
             {
-                CurrentUserOid = 1;
+                CurrentUserOid = user.Oid;
             }
             else
             {
