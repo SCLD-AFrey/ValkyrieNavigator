@@ -26,4 +26,9 @@ public class TransactionService
         var transactions = unitOfWork.Query<Transaction>().Where(p_x => p_x.TransactionDate >= StartDate && p_x.TransactionDate <= EndDate);
         return new Collection<Transaction>(transactions.ToList());;
     }
+    public Transaction GetTransaction(int p_oid)
+    {
+        using var unitOfWork = m_dbInterface.ProvisionUnitOfWork();
+        return unitOfWork.GetObjectByKey<Transaction>(p_oid);
+    }
 }
