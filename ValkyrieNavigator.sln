@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "ClientApp\ClientApp.csproj", "{C4A524A6-4652-41BC-B5FB-1C4CB58C9FC8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionData", "TransactionData\TransactionData.csproj", "{1BF4FB00-D721-495F-BB59-D49A5364E274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorClient", "NavigatorClient\NavigatorClient.csproj", "{458F095B-76D4-44B2-ADCE-F8A7293071D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C4A524A6-4652-41BC-B5FB-1C4CB58C9FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4A524A6-4652-41BC-B5FB-1C4CB58C9FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4A524A6-4652-41BC-B5FB-1C4CB58C9FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4A524A6-4652-41BC-B5FB-1C4CB58C9FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BF4FB00-D721-495F-BB59-D49A5364E274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1BF4FB00-D721-495F-BB59-D49A5364E274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BF4FB00-D721-495F-BB59-D49A5364E274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BF4FB00-D721-495F-BB59-D49A5364E274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

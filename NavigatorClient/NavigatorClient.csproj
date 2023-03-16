@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Models\" />
+        <AvaloniaResource Include="Assets\**" />
+        <None Remove=".gitignore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <TrimmerRootDescriptor Include="Roots.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview4" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
+        <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
+
+        <PackageReference Include="DevExpress.Xpo" Version="22.1.6" />
+
+        <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
+
+        <PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
+        <PackageReference Include="ReactiveUI.Validation" Version="2.2.1" />
+
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+        <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.1.23110.8" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+
+        <PackageReference Include="TextCopy" Version="6.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TransactionData\TransactionData.csproj" />
+    </ItemGroup>
+</Project>
