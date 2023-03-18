@@ -17,6 +17,7 @@ public partial class LoginView : UserControl
     {
         m_logger = p_logger;
         InitializeComponent();
+        DataContext = p_viewModel;
     }
 
     private void InitializeComponent()

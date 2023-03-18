@@ -5,5 +5,10 @@
              xmlns:vm="using:NavigatorClient.ViewModels.MainApp"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="NavigatorClient.Views.MainApp.TransactionsView">
+
+    <Design.DataContext>
+        <!-- ReSharper disable once Xaml.ConstructorWarning -->
+        <vm:TransactionsViewModel/>
+    </Design.DataContext>
     TransactionsView
 </UserControl>

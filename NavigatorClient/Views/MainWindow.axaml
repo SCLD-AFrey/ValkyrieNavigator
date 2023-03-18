@@ -1,17 +1,87 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:NavigatorClient.ViewModels"
+        xmlns:v="using:NavigatorClient.Views.MainApp"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:NavigatorClient.Views.Converters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NavigatorClient.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="NavigatorClient">
+        Title="{Binding WindowTitle}"
+        Closing="MainWindow_OnClosing"
+        WindowState="Maximized">
 
     <Design.DataContext>
+        <!-- ReSharper disable once Xaml.ConstructorWarning -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    
+    <Window.Resources>
+        <converters:LogEventLevelToImageConverter x:Key="LogEventLevelToImageConverter" />
+        <converters:LogEventLevelToColorConverter x:Key="LogEventLevelToColorConverter" />
+    </Window.Resources>
+    
+    <Window.Styles>
+        <Style Selector="ListBox.console">
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="10,4,10,2"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Carousel IsVirtualized="True" SelectedIndex="{Binding SelectedPageIndex}">
+                <Carousel.PageTransition>
+                    <PageSlide Orientation="Vertical" Duration="0.25"/>
+                </Carousel.PageTransition>
+                <ContentControl Content="{Binding LoginView}" />
+                <ContentControl Content="{Binding HomeView}" />
+                <ContentControl Content="{Binding TransactionsView}" />
+                <ContentControl Content="{Binding AccountsView}" />
+                <ContentControl Content="{Binding SettingsView}" />
+                <Grid Background="Blue"/>
+            </Carousel>
+        </StackPanel>
+        
+        <!-- Logger -->
+        <ListBox Grid.Row="1"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Classes="console"
+                 AutoScrollToSelectedItem="True"
+                 SelectionMode="Multiple"
+                 SelectedItems="{Binding SelectedMessages}"
+                 Items="{Binding Messages}">
+            <ListBox.Background>
+                <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,7.5%">
+                    <GradientStop Color="#1f000000" Offset="0" />
+                    <GradientStop Offset="1" />
+                </LinearGradientBrush>
+            </ListBox.Background>
+            <ListBox.ContextFlyout>
+                <MenuFlyout>
+                    <MenuItem Header="Copy Message..."
+                              Command="{Binding CopyMessages}" />
+                </MenuFlyout>
+            </ListBox.ContextFlyout>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"
+                                   Text="{Binding Text}" 
+                                   Foreground="{Binding LogLevel, Converter={StaticResource LogEventLevelToColorConverter}}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+    </Grid>
 
 </Window>

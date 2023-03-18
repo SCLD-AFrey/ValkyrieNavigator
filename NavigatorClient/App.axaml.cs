@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NavigatorClient.Models;
 using NavigatorClient.Models.Logging;
 using NavigatorClient.Services;
 using NavigatorClient.Services.Database;
@@ -15,6 +16,7 @@ using NavigatorClient.Views.MainApp;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
+using TransactionData;
 
 namespace NavigatorClient;
 
@@ -47,17 +49,20 @@ public partial class App : Application
         p_services.AddSingleton<TransactionDatabaseInterface>();
         p_services.AddSingleton<TransactionDatabaseInitialization>();
 
+        p_services.AddSingleton<SettingsService>();
+        p_services.AddSingleton<AccountsService>();
+        p_services.AddSingleton<TransactionService>();
+        p_services.AddSingleton<UserService>();
+
         p_services.AddSingleton<MainWindowViewModel>();
         p_services.AddSingleton<MainWindow>();
 
-        p_services.AddSingleton<MainViewModel>();
         p_services.AddSingleton<LoginViewModel>();
         p_services.AddSingleton<AccountsViewModel>();
         p_services.AddSingleton<HomeViewModel>();
         p_services.AddSingleton<SettingsViewModel>();
         p_services.AddSingleton<TransactionsViewModel>();
 
-        p_services.AddSingleton<MainView>();
         p_services.AddSingleton<LoginView>();
         p_services.AddSingleton<AccountsView>();
         p_services.AddSingleton<HomeView>();
@@ -80,19 +85,16 @@ public partial class App : Application
             .WriteTo.Sink(new CollectionSink())
             .WriteTo.File(new JsonFormatter(), filesService.LogsPath)
             .CreateLogger();
-    
-    
+
         await m_appHost.StartAsync();
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var dbInitializationService = m_appHost.Services.GetRequiredService<TransactionDatabaseInitialization>();
             await dbInitializationService.DoFirstTimeSetup();
             
             desktop.ShutdownRequested += DesktopOnShutdownRequested;
-            desktop.MainWindow = new MainWindow()
-            {
-                DataContext = m_appHost.Services.GetRequiredService<MainWindowViewModel>(),
-            };
+            desktop.MainWindow = m_appHost.Services.GetService<MainWindow>();;
         }
 
         base.OnFrameworkInitializationCompleted();
