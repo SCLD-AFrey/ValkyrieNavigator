@@ -9,5 +9,6 @@ public class SettingsViewModel : ViewModelBase
     public SettingsViewModel(ILogger<SettingsViewModel> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogInformation("SettingsViewModel was initialized");
     }
 }

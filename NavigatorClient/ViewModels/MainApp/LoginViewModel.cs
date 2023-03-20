@@ -14,14 +14,15 @@ public class LoginViewModel : ViewModelBase
     private readonly ILogger<LoginViewModel> m_logger;
     private readonly UserService            m_userService;
     private readonly  IServiceProvider            m_serviceProvider;
-    private readonly MainWindowViewModel m_mainWindowViewModel;
 
-    public LoginViewModel(ILogger<LoginViewModel> p_logger, UserService p_userService, IServiceProvider p_serviceProvider, MainWindowViewModel p_mainWindowViewModel)
+    public LoginViewModel(ILogger<LoginViewModel> p_logger, 
+        UserService p_userService, 
+        IServiceProvider p_serviceProvider)
     {
         m_logger = p_logger;
         m_userService = p_userService;
         m_serviceProvider = p_serviceProvider;
-        m_mainWindowViewModel = p_mainWindowViewModel;
+        m_logger.LogInformation("LoginViewModel was initialized");
     }
 
     [Reactive] public string ValidationError { get; set; }
@@ -35,17 +36,19 @@ public class LoginViewModel : ViewModelBase
         IsBusy             = true;
             
         await Task.Delay(GetLoginDelayTime(AttemptedLoginCount));
-        m_mainWindowViewModel.CurrentUser = new UserProfile();
+        m_userService.CurrentUser = new UserProfile();
 
         try
         {
-            m_mainWindowViewModel.CurrentUser = await m_userService.AttemptLogin(Username, Password);
+            m_userService.CurrentUser = await m_userService.AttemptLogin(Username, Password);
+            m_logger.LogInformation("User logged in successfully");
         }
         catch (Exception e)
         {
             AttemptedLoginCount++;
             IsBusy          = false;
             ValidationError = e.Message;
+            m_logger.LogError(e, "User failed to login");
         }
     }
     

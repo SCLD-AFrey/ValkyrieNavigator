@@ -41,7 +41,8 @@ public partial class App : Application
 
     private void ConfigureServices(IServiceCollection p_services)
     {
-        p_services.AddSingleton<CommonDirectories>();
+        p_services.AddSingleton<SettingsService>();
+        //p_services.AddSingleton<CommonDirectories>();
         p_services.AddSingleton<CommonFiles>();
         p_services.AddSingleton<PasswordHash>();
         
@@ -49,13 +50,13 @@ public partial class App : Application
         p_services.AddSingleton<TransactionDatabaseInterface>();
         p_services.AddSingleton<TransactionDatabaseInitialization>();
 
-        p_services.AddSingleton<SettingsService>();
         p_services.AddSingleton<AccountsService>();
         p_services.AddSingleton<TransactionService>();
         p_services.AddSingleton<UserService>();
+        p_services.AddSingleton<NavigationService>();
 
         p_services.AddSingleton<MainWindowViewModel>();
-        p_services.AddSingleton<MainWindow>();
+        p_services.AddSingleton<MainWindowView>();
 
         p_services.AddSingleton<LoginViewModel>();
         p_services.AddSingleton<AccountsViewModel>();
@@ -94,7 +95,7 @@ public partial class App : Application
             await dbInitializationService.DoFirstTimeSetup();
             
             desktop.ShutdownRequested += DesktopOnShutdownRequested;
-            desktop.MainWindow = m_appHost.Services.GetService<MainWindow>();;
+            desktop.MainWindow = m_appHost.Services.GetService<MainWindowView>();;
         }
 
         base.OnFrameworkInitializationCompleted();

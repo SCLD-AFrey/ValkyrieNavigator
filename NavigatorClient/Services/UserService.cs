@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using DevExpress.Xpo;
 using Microsoft.Extensions.Logging;
@@ -8,18 +9,21 @@ using TransactionData;
 
 namespace NavigatorClient.Services;
 
-public class UserService
+public class UserService : INotifyPropertyChanged
 {
-    private ILogger<UserService> m_logger;
-    private TransactionDatabaseInterface m_transactionDatabaseInterface;
-    private PasswordHash m_passwordHash;
+    private readonly ILogger<UserService> m_logger;
+    private readonly TransactionDatabaseInterface m_transactionDatabaseInterface;
+    private readonly PasswordHash m_passwordHash;
     public UserService(ILogger<UserService> p_logger, TransactionDatabaseInterface p_transactionDatabaseInterface, PasswordHash p_passwordHash)
     {
         m_logger = p_logger;
         m_transactionDatabaseInterface = p_transactionDatabaseInterface;
         m_passwordHash = p_passwordHash;
+        m_logger.LogInformation("UserService was initialized");
     }
 
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public UserProfile CurrentUser { get; set; } = new UserProfile();
     public async Task<UserProfile> AttemptLogin(string p_username, string p_password)
     {
         UnitOfWork uow = m_transactionDatabaseInterface.ProvisionUnitOfWork();

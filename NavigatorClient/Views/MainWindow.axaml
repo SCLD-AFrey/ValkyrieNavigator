@@ -1,12 +1,13 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:NavigatorClient.ViewModels"
+        xmlns:serv="using:NavigatorClient.Services"
         xmlns:v="using:NavigatorClient.Views.MainApp"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:NavigatorClient.Views.Converters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="NavigatorClient.Views.MainWindow"
+        x:Class="NavigatorClient.Views.MainWindowView"
         Icon="/Assets/avalonia-logo.ico"
         Title="{Binding WindowTitle}"
         Closing="MainWindow_OnClosing"
@@ -42,6 +43,9 @@
                 <Carousel.PageTransition>
                     <PageSlide Orientation="Vertical" Duration="0.25"/>
                 </Carousel.PageTransition>
+                <Carousel.DataContext>
+                    <Binding Path="NavigationService" />
+                </Carousel.DataContext>
                 <ContentControl Content="{Binding LoginView}" />
                 <ContentControl Content="{Binding HomeView}" />
                 <ContentControl Content="{Binding TransactionsView}" />

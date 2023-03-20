@@ -8,5 +8,6 @@ public class AccountsService
     public AccountsService(ILogger<AccountsService> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogInformation("AccountsService was initialized");
     }
 }

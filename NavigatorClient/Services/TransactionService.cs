@@ -8,5 +8,6 @@ public class TransactionService
     public TransactionService(ILogger<TransactionService> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogInformation("TransactionService was initialized");
     }
 }

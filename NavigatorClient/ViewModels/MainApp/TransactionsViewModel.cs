@@ -9,5 +9,6 @@ public class TransactionsViewModel : ViewModelBase
     public TransactionsViewModel(ILogger<TransactionsViewModel> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogInformation("TransactionsViewModel was initialized");
     }
 }

@@ -7,17 +7,17 @@ using NavigatorClient.ViewModels;
 
 namespace NavigatorClient.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindowView : Window
 {
 
-    private readonly ILogger<MainWindow> m_logger;
+    private readonly ILogger<MainWindowView> m_logger;
     
     //Needed Annoyance
     #pragma warning disable CS8618
-        public MainWindow() { }
+        public MainWindowView() { }
     #pragma warning restore CS8618
     
-    public MainWindow(ILogger<MainWindow> p_logger, MainWindowViewModel p_viewModel)
+    public MainWindowView(ILogger<MainWindowView> p_logger, MainWindowViewModel p_viewModel)
     {
         m_logger = p_logger;
         DataContext = p_viewModel;

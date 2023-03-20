@@ -1,0 +1,39 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mainApp="clr-namespace:TransactionNavigator.ViewModels.MainApp"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TransactionNavigator.Views.MainApp.LoginView">
+
+    <Design.DataContext>
+        <!-- ReSharper disable once Xaml.ConstructorWarning -->
+        <mainApp:LoginViewModel/>
+    </Design.DataContext>
+    
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Please Login" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Username:" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Username}"></TextBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Password:" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Password}"></TextBox>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Login" Command="{Binding ClickLogin}" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ValidationError}" />
+        
+    </Grid>
+    
+</UserControl>

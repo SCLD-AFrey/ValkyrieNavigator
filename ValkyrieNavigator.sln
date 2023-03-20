@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionData", "Transact
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorClient", "NavigatorClient\NavigatorClient.csproj", "{458F095B-76D4-44B2-ADCE-F8A7293071D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionNavigator", "TransactionNavigator\TransactionNavigator.csproj", "{F6E10DA0-07A1-450E-AB54-4DFE1889D591}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{458F095B-76D4-44B2-ADCE-F8A7293071D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E10DA0-07A1-450E-AB54-4DFE1889D591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E10DA0-07A1-450E-AB54-4DFE1889D591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E10DA0-07A1-450E-AB54-4DFE1889D591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E10DA0-07A1-450E-AB54-4DFE1889D591}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

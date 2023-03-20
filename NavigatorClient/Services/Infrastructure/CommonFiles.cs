@@ -1,26 +1,33 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace NavigatorClient.Services.Infrastructure
 {
     public class CommonFiles
     {
-        private readonly CommonDirectories m_commonDirectories;
+        
 
-        public CommonFiles(CommonDirectories p_commonDirectories)
+        public CommonFiles()
         {
-            m_commonDirectories = p_commonDirectories;
+            AppDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), ".TransactionNavigatorXp");
 
+            LogsPath = Path.Combine(AppDataPath, "logs", "events.log");
+            SettingsPath = Path.Combine(AppDataPath, "settings.ini");
+            DatabasePath = Path.Combine(AppDataPath, "data", "transaction.db");
 
-            LogsPath = Path.Combine(m_commonDirectories.m_appDataPath, "logs", "events.log");
-            SettingsPath = Path.Combine(m_commonDirectories.m_appDataPath, "settings.ini");
-            DatabasePath = Path.Combine(m_commonDirectories.m_appDataPath, "data", "transaction.db");
-
+            CreateFolders();
             CreateNecessaryDirectories();
         }
 
         public string LogsPath { get; }
         public string SettingsPath { get; }
         public string DatabasePath { get; }
+        public string AppDataPath { get; }
+        
+        private void CreateFolders()
+        {
+            var newDirectory = Directory.CreateDirectory(AppDataPath);
+        }
 
         private void CreateNecessaryDirectories()
         {

@@ -21,6 +21,7 @@ public class SettingsService
         m_logger = p_logger;
         m_commonFiles = p_commonFiles;
         Settings = new Settings();
+        m_logger.LogInformation("SettingsService was initialized");
         Read();
     }
 

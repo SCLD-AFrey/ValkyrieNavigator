@@ -48,4 +48,10 @@
     <ItemGroup>
       <ProjectReference Include="..\TransactionData\TransactionData.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\MainWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

@@ -9,5 +9,6 @@ public class AccountsViewModel : ViewModelBase
     public AccountsViewModel(ILogger<AccountsViewModel> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogInformation("AccountsViewModel was initialized");
     }
 }

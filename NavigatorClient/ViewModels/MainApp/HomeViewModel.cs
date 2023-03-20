@@ -9,5 +9,6 @@ public class HomeViewModel : ViewModelBase
     public HomeViewModel(ILogger<HomeViewModel> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogInformation("HomeViewModel was initialized");
     }
 }
